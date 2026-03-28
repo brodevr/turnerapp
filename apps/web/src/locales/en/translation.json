@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "home": "Home",
+    "book": "Book Appointment",
+    "dashboard": "My Account",
+    "admin": "Admin Panel",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "hero": {
+    "badge": "Experience Pure Elegance",
+    "title_part1": "Elevate Your",
+    "title_gradient": "Natural Radiance",
+    "subtitle": "Discover a sanctuary where artistry meets wellness. Our master stylists and estheticians are dedicated to crafting your signature look.",
+    "book_now": "Book Your Session",
+    "view_services": "View Services"
+  },
+  "promise": {
+    "products": {
+      "title": "Premium Products",
+      "text": "We exclusively use organic, dermatologist-tested formulas for lasting health."
+    },
+    "award": {
+      "title": "Award Winning",
+      "text": "Named 'Top Luxury Salon' for three consecutive years for excellence and innovation."
+    },
+    "artisans": {
+      "title": "Master Artisans",
+      "text": "Our staff undergoes rigorous monthly training to stay at the cutting edge of beauty."
+    }
+  },
+  "services": {
+    "title": "Our Signature Services",
+    "subtitle": "Curated treatments tailored to your unique biology and style. From the classic to the contemporary.",
+    "view_all": "Discover All Services",
+    "reserve": "Reserve Appointment",
+    "hair": {
+      "title": "Master Hair Styling",
+      "desc": "From precision cuts to bespoke coloring, our experts craft your perfect look.",
+      "price": "Starting at $35,000 ARS"
+    },
+    "skin": {
+      "title": "Advanced Skincare",
+      "desc": "Rejuvenating facials and treatments designed to restore your natural glow.",
+      "price": "Starting at $25,000 ARS"
+    },
+    "nails": {
+      "title": "Luxury Mani-Pedi",
+      "desc": "Indulgent nail care that combines artistry with the finest organic products.",
+      "price": "Starting at $15,000 ARS"
+    }
+  },
+  "testimonials": {
+    "title": "Our Clients",
+    "subtitle": "Join thousands of satisfied clients who have made us their destination for beauty and self-care."
+  },
+  "cta": {
+    "title": "Ready for your transformation?",
+    "subtitle": "Reserve your slot today and experience the pinnacle of personalized beauty care.",
+    "button": "Book Your Visit Now"
+  },
+  "clientDashboard": {
+    "title": "My Account",
+    "greeting": "Hello, {{name}}!",
+    "bookNew": "Book New Appointment",
+    "logout": "Logout",
+    "upcoming": "Pending Appointments",
+    "past": "Appointment History",
+    "noUpcoming": "No upcoming appointments",
+    "noUpcomingDesc": "You don't have any pending bookings.",
+    "bookNow": "Book Now",
+    "reschedule": "Reschedule",
+    "rescheduleMsg": "Hello, I want to reschedule my appointment",
+    "cancelling": "Cancelling...",
+    "cancel": "Cancel",
+    "profileInfo": "Profile Info",
+    "fullName": "Full Name",
+    "emailConfigured": "Email Configured",
+    "phone": "Phone",
+    "notProvided": "Not provided"
+  },
+  "booking": {
+    "professionals": {
+      "title": "Select a Professional",
+      "subtitle": "Choose the expert who will attend you."
+    },
+    "services": {
+      "title": "Select a Service",
+      "subtitle": "Choose the service you'd like to book."
+    },
+    "calendar": {
+      "title": "Select a Date",
+      "subtitle": "Choose a convenient day for your appointment."
+    },
+    "timeSlots": {
+      "title": "Select a Time",
+      "subtitle": "Choose the time that works best for you.",
+      "noSlots": "No available slots for this date."
+    },
+    "customer": {
+      "titleGuest": "Finish your booking",
+      "subtitleGuest": "Almost done. Please provide your details to confirm the appointment.",
+      "titleAuth": "Contact Information",
+      "subtitleAuth": "You are booking using your registered Client Portal account.",
+      "haveAccount": "Already have an account?",
+      "haveAccountDesc": "Log in or register to book faster and keep track of your history.",
+      "loginBtn": "Log In",
+      "registerBtn": "Register",
+      "formTitleGuest": "Continue as Guest",
+      "formTitleAuth": "Your Details",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "your.email@example.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "back": "Back",
+      "continue": "Continue to Confirmation",
+      "errors": {
+        "name": "Name is required",
+        "emailReq": "Email is required",
+        "emailInvalid": "Invalid email format",
+        "phoneReq": "Phone number is required"
+      }
+    },
+    "confirmation": {
+      "title": "Confirm Appointment",
+      "subtitle": "Please review the details below before confirming.",
+      "professional": "Professional",
+      "service": "Service",
+      "date": "Date",
+      "time": "Time",
+      "price": "Price",
+      "total": "Total",
+      "customerInfo": "Customer Information",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "back": "Back",
+      "confirmIng": "Confirming...",
+      "confirmBtn": "Confirm Booking",
+      "successTitle": "Booking Confirmed!",
+      "successMsg": "Your appointment has been successfully scheduled. We look forward to seeing you.",
+      "goToDashboard": "Go to My Account",
+      "returnHome": "Return to Home",
+      "free": "Free"
+    },
+    "success": {
+      "title": "Appointment Confirmed",
+      "message": "Your appointment has been successfully booked. You will receive a confirmation email shortly.",
+      "reference": "Appointment Reference",
+      "returnHome": "Return to Home"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Access your account",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "google": "Sign in with Google",
+      "orEmail": "Or continue with email",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register",
+      "invalid": "Invalid email or password",
+      "error": "Error during login"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Register to track your appointments and manage bookings",
+      "google": "Sign up with Google",
+      "orEmail": "Or continue with email",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "pwdMatchError": "Passwords do not match",
+      "error": "Registration failed"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "appointments": "Appointments",
+      "professionals": "Professionals",
+      "services": "Services",
+      "backToSite": "Back to Website",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "upcomingTitle": "Upcoming Appointments",
+      "stats": {
+        "totalAppointments": "Total Appointments",
+        "upcoming": "Upcoming",
+        "professionals": "Professionals",
+        "services": "Services"
+      }
+    },
+    "appointments": {
+      "title": "Appointments",
+      "loading": "Loading appointments...",
+      "noAppointments": "No appointments booked yet.",
+      "columns": {
+        "client": "Client",
+        "service": "Service",
+        "professional": "Professional",
+        "date": "Date",
+        "time": "Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "filters": "Filters",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "allProfessionals": "All Professionals",
+      "allServices": "All Services",
+      "allStatuses": "All Statuses",
+      "clear": "Clear Filters",
+      "statusValues": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Completed"
+      }
+    },
+    "professionals": {
+      "title": "Professionals",
+      "addBtn": "Add Professional",
+      "loading": "Loading professionals...",
+      "noProfessionals": "No professionals added yet.",
+      "specialization": "Specialization",
+      "edit": "Edit",
+      "delete": "Delete",
+      "addTitle": "Add New Professional",
+      "addSubtitle": "Add a new professional to the system",
+      "editTitle": "Edit Professional",
+      "editSubtitle": "Update the professional's information",
+      "form": {
+        "name": "Full Name",
+        "specializationDesc": "e.g. Master Stylist",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "color": "Marker Color",
+        "cancel": "Cancel",
+        "save": "Save Professional",
+        "saving": "Saving..."
+      }
+    },
+    "services": {
+      "title": "Services",
+      "addBtn": "Add Service",
+      "loading": "Loading services...",
+      "noServices": "No services added yet.",
+      "duration": "minutes",
+      "edit": "Edit",
+      "delete": "Delete",
+      "addTitle": "Add New Service",
+      "addSubtitle": "Add a new service to the catalog",
+      "editTitle": "Edit Service",
+      "editSubtitle": "Update the service details",
+      "form": {
+        "name": "Service Name",
+        "description": "Description",
+        "price": "Price ($)",
+        "durationDesc": "Duration in minutes",
+        "color": "Marker Color",
+        "cancel": "Cancel",
+        "save": "Save Service",
+        "saving": "Saving..."
+      }
+    }
+  }
+}

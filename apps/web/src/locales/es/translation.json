@@ -1,0 +1,289 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "book": "Reservar Turno",
+    "dashboard": "Mi Cuenta",
+    "admin": "Admin Panel",
+    "logout": "Cerrar Sesión",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse"
+  },
+  "hero": {
+    "badge": "Experimenta la Pura Elegancia",
+    "title_part1": "Eleva tu",
+    "title_gradient": "Belleza Natural",
+    "subtitle": "Descubre un santuario donde el arte se encuentra con el bienestar. Nuestros maestros estilistas y esteticistas se dedican a crear tu look distintivo.",
+    "book_now": "Reserva tu Sesión",
+    "view_services": "Ver Servicios"
+  },
+  "promise": {
+    "products": {
+      "title": "Productos Premium",
+      "text": "Utilizamos exclusivamente fórmulas orgánicas, testeadas dermatológicamente."
+    },
+    "award": {
+      "title": "Galardonados",
+      "text": "Nombrado 'Top Luxury Salon' por tres años consecutivos por excelencia e innovación."
+    },
+    "artisans": {
+      "title": "Maestros Artesanos",
+      "text": "Nuestro personal recibe formación rigurosa mensual para estar a la vanguardia."
+    }
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Tratamientos curados a medida de tu estilo único. Desde lo clásico hasta lo contemporáneo.",
+    "view_all": "Descubrir Todos los Servicios",
+    "reserve": "Reservar Turno",
+    "hair": {
+      "title": "Estilismo Maestro",
+      "desc": "Desde cortes de precisión hasta coloración a medida, creamos tu look perfecto.",
+      "price": "Desde $35.000 ARS"
+    },
+    "skin": {
+      "title": "Cuidado de Piel Avanzado",
+      "desc": "Faciales rejuvenecedores diseñados para restaurar tu brillo natural.",
+      "price": "Desde $25.000 ARS"
+    },
+    "nails": {
+      "title": "Manicura de Lujo",
+      "desc": "Cuidado de uñas indulgente que combina arte con los mejores productos orgánicos.",
+      "price": "Desde $15.000 ARS"
+    }
+  },
+  "testimonials": {
+    "title": "Nuestras Clientes",
+    "subtitle": "Únete a miles de clientas satisfechas que nos han elegido como su destino de belleza."
+  },
+  "cta": {
+    "title": "¿Lista para tu transformación?",
+    "subtitle": "Reserva tu lugar hoy y experimenta lo mejor en cuidado de belleza personalizado.",
+    "button": "Reserva tu Visita Ahora"
+  },
+  "clientDashboard": {
+    "title": "Mi Cuenta",
+    "greeting": "¡Hola, {{name}}!",
+    "bookNew": "Reservar un nuevo turno",
+    "logout": "Cerrar Sesión",
+    "upcoming": "Turnos Pendientes",
+    "past": "Historial de Turnos",
+    "noUpcoming": "No hay turnos pendientes",
+    "noUpcomingDesc": "No tienes reservas pendientes.",
+    "bookNow": "Reservar Ahora",
+    "reschedule": "Reagendar",
+    "rescheduleMsg": "Hola, quiero reprogramar mi turno",
+    "cancelling": "Cancelando...",
+    "cancel": "Cancelar",
+    "profileInfo": "Información del Perfil",
+    "fullName": "Nombre Completo",
+    "emailConfigured": "Email Configurado",
+    "phone": "Teléfono",
+    "notProvided": "No provisto"
+  },
+  "booking": {
+    "professionals": {
+      "title": "Selecciona un Profesional",
+      "subtitle": "Elige al experto que te atenderá.",
+      "empty": "No hay profesionales disponibles.",
+      "selectBtn": "Seleccionar Profesional"
+    },
+    "services": {
+      "title": "Selecciona un Servicio",
+      "subtitle": "Elige el servicio que deseas reservar.",
+      "empty": "No hay servicios disponibles.",
+      "selectBtn": "Seleccionar Servicio",
+      "backBtn": "Volver a Profesionales"
+    },
+    "calendar": {
+      "title": "Selecciona una Fecha",
+      "subtitle": "Elige un día conveniente para tu turno."
+    },
+    "timeSlots": {
+      "title": "Selecciona un Horario",
+      "subtitle": "Elige la hora que mejor te quede.",
+      "noSlots": "No hay horarios disponibles para esta fecha."
+    },
+    "customer": {
+      "titleGuest": "Finaliza tu reserva",
+      "subtitleGuest": "Casi listo. Por favor completa tus datos para confirmar el turno.",
+      "titleAuth": "Información de Contacto",
+      "subtitleAuth": "Estás reservando con tu cuenta registrada del Portal de Clientes.",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "haveAccountDesc": "Inicia sesión o regístrate para reservar más rápido.",
+      "loginBtn": "Iniciar Sesión",
+      "registerBtn": "Registrarse",
+      "formTitleGuest": "Continuar como Invitado",
+      "formTitleAuth": "Tus Datos",
+      "fullName": "Nombre Completo",
+      "fullNamePlaceholder": "Tu nombre completo",
+      "email": "Email",
+      "emailPlaceholder": "tu.email@ejemplo.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "+54 9 11 1234-5678",
+      "back": "Volver",
+      "continue": "Continuar a Confirmación",
+      "errors": {
+        "name": "El nombre es requerido",
+        "emailReq": "El email es requerido",
+        "emailInvalid": "Formato inválido",
+        "phoneReq": "El teléfono es requerido"
+      }
+    },
+    "confirmation": {
+      "title": "Confirmar Turno",
+      "subtitle": "Por favor revisa los detalles antes de confirmar.",
+      "professional": "Profesional",
+      "service": "Servicio",
+      "date": "Fecha",
+      "time": "Hora",
+      "price": "Precio",
+      "total": "Total",
+      "customerInfo": "Información del Cliente",
+      "name": "Nombre",
+      "email": "Email",
+      "phone": "Teléfono",
+      "back": "Volver",
+      "confirmIng": "Confirmando...",
+      "confirmBtn": "Confirmar Reserva",
+      "successTitle": "¡Reserva Confirmada!",
+      "successMsg": "Tu turno ha sido programado con éxito. Te esperamos.",
+      "goToDashboard": "Ir a Mi Cuenta",
+      "returnHome": "Volver al Inicio",
+      "free": "Gratis"
+    },
+    "success": {
+      "title": "Cita Confirmada",
+      "message": "Tu cita ha sido reservada con éxito. Recibirás un correo de confirmación en breve.",
+      "reference": "Referencia de la Cita",
+      "returnHome": "Volver al Inicio"
+    },
+    "error": "Error al crear la cita. Por favor intenta de nuevo."
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "subtitle": "Accede a tu cuenta",
+      "email": "Email",
+      "emailPlaceholder": "nombre@ejemplo.com",
+      "password": "Contraseña",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando...",
+      "google": "Iniciar sesión con Google",
+      "orEmail": "O continuar con email",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerLink": "Regístrate aquí",
+      "invalid": "Credenciales inválidas",
+      "error": "Error al iniciar sesión"
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "subtitle": "Regístrate para llevar tu historial de turnos",
+      "google": "Registrarse con Google",
+      "orEmail": "O continuar con email",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Email",
+      "phone": "Teléfono",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "submit": "Crear Cuenta",
+      "submitting": "Creando cuenta...",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Iniciar Sesión",
+      "pwdMatchError": "Las contraseñas no coinciden",
+      "error": "Error en el registro"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Panel de Control",
+      "appointments": "Citas",
+      "professionals": "Profesionales",
+      "services": "Servicios",
+      "backToSite": "Volver al Sitio Web",
+      "logout": "Cerrar Sesión"
+    },
+    "dashboard": {
+      "upcomingTitle": "Próximas Citas",
+      "stats": {
+        "totalAppointments": "Total de Citas",
+        "upcoming": "Próximas",
+        "professionals": "Profesionales",
+        "services": "Servicios"
+      }
+    },
+    "appointments": {
+      "title": "Citas Programadas",
+      "loading": "Cargando citas...",
+      "noAppointments": "No hay citas programadas.",
+      "columns": {
+        "client": "Cliente",
+        "service": "Servicio",
+        "professional": "Profesional",
+        "date": "Fecha",
+        "time": "Hora",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "filters": "Filtros",
+      "startDate": "Fecha Inicio",
+      "endDate": "Fecha Fin",
+      "allProfessionals": "Todos los Profesionales",
+      "allServices": "Todos los Servicios",
+      "allStatuses": "Todos los Estados",
+      "clear": "Limpiar Filtros",
+      "statusValues": {
+        "pending": "Pendiente",
+        "confirmed": "Confirmado",
+        "cancelled": "Cancelado",
+        "completed": "Completado"
+      }
+    },
+    "professionals": {
+      "title": "Profesionales",
+      "addBtn": "Agregar Profesional",
+      "loading": "Cargando profesionales...",
+      "noProfessionals": "No hay profesionales registrados.",
+      "specialization": "Especialización",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "addTitle": "Añadir Nuevo Profesional",
+      "addSubtitle": "Añadir un nuevo profesional al sistema",
+      "editTitle": "Editar Profesional",
+      "editSubtitle": "Actualiza la información del profesional",
+      "form": {
+        "name": "Nombre Completo",
+        "specializationDesc": "ej. Maestro Estilista",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "color": "Color de Etiqueta",
+        "cancel": "Cancelar",
+        "save": "Guardar Profesional",
+        "saving": "Guardando..."
+      }
+    },
+    "services": {
+      "title": "Servicios",
+      "addBtn": "Agregar Servicio",
+      "loading": "Cargando servicios...",
+      "noServices": "No hay servicios registrados.",
+      "duration": "minutos",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "addTitle": "Añadir Nuevo Servicio",
+      "addSubtitle": "Añadir un nuevo servicio al catálogo",
+      "editTitle": "Editar Servicio",
+      "editSubtitle": "Actualiza los detalles del servicio",
+      "form": {
+        "name": "Nombre del Servicio",
+        "description": "Descripción",
+        "price": "Precio ($)",
+        "durationDesc": "Duración en minutos",
+        "color": "Color de Etiqueta",
+        "cancel": "Cancelar",
+        "save": "Guardar Servicio",
+        "saving": "Guardando..."
+      }
+    }
+  }
+}

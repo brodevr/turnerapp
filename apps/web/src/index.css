@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 99%;
+    --foreground: 0 0% 8%;
+    --card: 30 20% 99%;
+    --card-foreground: 0 0% 8%;
+    --popover: 30 20% 99%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 340 70% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 30% 96%;
+    /* Light Beige */
+    --secondary-foreground: 0 0% 15%;
+    --muted: 30 15% 95%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 20 25% 93%;
+    /* Warm Beige */
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 90%;
+    --input: 30 15% 90%;
+    --ring: 0 79% 72%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 20 15% 5%;
+    --foreground: 0 0% 98%;
+    --card: 20 15% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 20 15% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 340 60% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 10% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 20 10% 15%;
+    --muted-foreground: 20 5% 65%;
+    --accent: 45 40% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 340 60% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/60 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-lg border border-white/10 shadow-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-[#D4AF37] to-primary;
+  }
+
+  .animate-reveal {
+    animation: reveal 0.8s cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
