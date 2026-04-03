@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where composer:*)",
+      "Bash(where php:*)",
+      "Bash(where composer.bat)",
+      "Bash(composer.bat require:*)",
+      "Bash(php artisan:*)",
+      "Bash(curl -s -o \"c:/Users/Owner/Downloads/horizons-export-dc949a03-a156-48df-bba6-db3e3b8cfe4b/apps/api/storage/cacert.pem\" https://curl.se/ca/cacert.pem)",
+      "Bash(php composer.phar show league/flysystem-aws-s3-v3)"
+    ]
+  }
+}

@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'mercadopago' => [
+        'client_id'      => env('MP_CLIENT_ID'),
+        'client_secret'  => env('MP_CLIENT_SECRET'),
+        'access_token'   => env('MP_ACCESS_TOKEN'),   // fallback for dev/testing without OAuth
+        'public_key'     => env('MP_PUBLIC_KEY'),
+        'webhook_secret' => env('MP_WEBHOOK_SECRET'),
+        'frontend_url'   => env('FRONTEND_URL', 'http://localhost:5173'),
+    ],
+
 ];

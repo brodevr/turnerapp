@@ -19,11 +19,20 @@ class Appointment extends Model
         'customer_email',
         'customer_phone',
         'reminder_sent_at',
+        'payment_status',
+        'mp_preference_id',
+        'mp_payment_id',
+        'deposit_amount',
+        'deposit_percentage',
+        'payment_expires_at',
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'reminder_sent_at' => 'datetime',
+        'date'               => 'date',
+        'reminder_sent_at'   => 'datetime',
+        'payment_expires_at' => 'datetime',
+        'deposit_amount'     => 'decimal:2',
+        'deposit_percentage' => 'decimal:2',
     ];
 
     public function patient(): BelongsTo

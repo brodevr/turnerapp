@@ -12,11 +12,16 @@ class Service extends Model
         'duration_minutes',
         'price',
         'color',
+        'description',
+        'image_url',
+        'is_promo',
+        'promo_label',
     ];
 
     protected $casts = [
         'duration_minutes' => 'integer',
-        'price' => 'decimal:2',
+        'price'            => 'decimal:2',
+        'is_promo'         => 'boolean',
     ];
 
     public function appointments(): HasMany

@@ -11,10 +11,11 @@ import StatusBadge from '@/components/StatusBadge.jsx';
 import DateRangeFilter from '@/components/DateRangeFilter.jsx';
 import AppointmentEditModal from '@/components/modals/AppointmentEditModal.jsx';
 import AppointmentCancelModal from '@/components/modals/AppointmentCancelModal.jsx';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import apiClient from '@/lib/apiClient';
 import { formatDate, formatTime } from '@/utils/appointmentUtils';
 import { Edit, X, Filter, ChevronDown, ChevronUp, User, Briefcase, Calendar as CalendarIcon, Clock, Mail, MessageSquare, CheckCircle2 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
 
 const AppointmentsListPage = () => {
@@ -110,10 +111,37 @@ const AppointmentsListPage = () => {
     }
   };
 
-  const handleWhatsAppReminder = (appointment) => {
-    const date = formatDate(appointment.date);
-    const time = formatTime(appointment.start_time);
-    const message = `Hola ${appointment.customer_name}, te recordamos tu turno para el día ${date} a las ${time} hs en Virginia Rojas Beauty. ¡Te esperamos! ✨`;
+  const whatsappTemplates = {
+    reminder: (apt) => {
+      const date = formatDate(apt.date);
+      const time = formatTime(apt.start_time);
+      return `Hola ${apt.customer_name}, te recordamos tu turno para el dia ${date} a las ${time} hs en Virginia Rojas Beauty. Te esperamos!`;
+    },
+    confirmation: (apt) => {
+      const date = formatDate(apt.date);
+      const time = formatTime(apt.start_time);
+      const service = apt.service?.name || 'tu servicio';
+      return `Hola ${apt.customer_name}! Tu turno de ${service} quedo confirmado para el dia ${date} a las ${time} hs en Virginia Rojas Beauty. Cualquier consulta no dudes en escribirnos!`;
+    },
+    cancellation: (apt) => {
+      const date = formatDate(apt.date);
+      const time = formatTime(apt.start_time);
+      return `Hola ${apt.customer_name}, te informamos que tu turno del dia ${date} a las ${time} hs ha sido cancelado. Podes agendar un nuevo turno en https://virginiarojasbeauty.com.ar o escribirnos para coordinar.`;
+    },
+    paymentReceived: (apt) => {
+      const deposit = apt.deposit_amount ? `$${Number(apt.deposit_amount).toLocaleString('es-AR')}` : '';
+      return `Hola ${apt.customer_name}! Recibimos tu pago${deposit ? ` de ${deposit}` : ''} correctamente. Tu turno esta confirmado. Te esperamos en Virginia Rojas Beauty!`;
+    },
+    paymentPending: (apt) => {
+      const date = formatDate(apt.date);
+      const time = formatTime(apt.start_time);
+      const deposit = apt.deposit_amount ? `$${Number(apt.deposit_amount).toLocaleString('es-AR')}` : '';
+      return `Hola ${apt.customer_name}, tu turno del dia ${date} a las ${time} hs esta pendiente de pago${deposit ? ` (sena: ${deposit})` : ''}. Realiza el pago para confirmar tu reserva. Cualquier duda escribinos!`;
+    },
+  };
+
+  const sendWhatsApp = (appointment, templateKey) => {
+    const message = whatsappTemplates[templateKey](appointment);
     const phone = appointment.customer_phone.replace(/\D/g, '');
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -192,8 +220,12 @@ const AppointmentsListPage = () => {
                       <SelectValue placeholder={t('admin.appointments.allStatuses', { defaultValue: 'All Statuses' })} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="reserved">{t('admin.appointments.statusValues.pending', { defaultValue: 'Reserved' })}</SelectItem>
-                      <SelectItem value="cancelled">{t('admin.appointments.statusValues.cancelled', { defaultValue: 'Cancelled' })}</SelectItem>
+                      <SelectItem value="pending_payment">Pago Pendiente</SelectItem>
+                      <SelectItem value="pending">Pendiente</SelectItem>
+                      <SelectItem value="confirmed">Confirmado</SelectItem>
+                      <SelectItem value="cancelled">Cancelado</SelectItem>
+                      <SelectItem value="completed">Completado</SelectItem>
+                      <SelectItem value="no_show">No se presentó</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -230,6 +262,7 @@ const AppointmentsListPage = () => {
                           <TableHead className="whitespace-nowrap">{t('admin.appointments.columns.professional', { defaultValue: 'Professional' })}</TableHead>
                           <TableHead className="whitespace-nowrap">{t('admin.appointments.columns.service', { defaultValue: 'Service' })}</TableHead>
                           <TableHead className="whitespace-nowrap">{t('admin.appointments.columns.status', { defaultValue: 'Status' })}</TableHead>
+                          <TableHead className="whitespace-nowrap">Seña</TableHead>
                           <TableHead className="whitespace-nowrap">Recordatorio</TableHead>
                           <TableHead className="whitespace-nowrap">{t('admin.appointments.columns.actions', { defaultValue: 'Actions' })}</TableHead>
                         </TableRow>
@@ -250,6 +283,32 @@ const AppointmentsListPage = () => {
                             <TableCell>
                               <StatusBadge status={apt.status} />
                             </TableCell>
+                            <TableCell className="whitespace-nowrap">
+                              {apt.deposit_amount ? (
+                                <div className="space-y-1">
+                                  <p className="text-sm font-medium">${Number(apt.deposit_amount).toLocaleString('es-AR')} ARS</p>
+                                  <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${
+                                    apt.payment_status === 'approved'      ? 'bg-green-100 text-green-700' :
+                                    apt.payment_status === 'rejected'      ? 'bg-red-100 text-red-700' :
+                                    apt.payment_status === 'not_required'  ? 'bg-gray-100 text-gray-500' :
+                                    apt.payment_status === 'cancelled'     ? 'bg-gray-100 text-gray-600' :
+                                    'bg-yellow-100 text-yellow-700'
+                                  }`}>
+                                    {apt.payment_status === 'approved'     ? '✓ Acreditada' :
+                                     apt.payment_status === 'rejected'     ? '✗ Rechazada'  :
+                                     apt.payment_status === 'not_required' ? 'Sin seña'     :
+                                     apt.payment_status === 'cancelled'    ? 'Cancelada'    : '⏳ Pendiente'}
+                                  </span>
+                                  {apt.mp_payment_id && (
+                                    <p className="text-xs text-muted-foreground font-mono">
+                                      MP #{apt.mp_payment_id}
+                                    </p>
+                                  )}
+                                </div>
+                              ) : (
+                                <span className="text-xs text-muted-foreground">Sin seña</span>
+                              )}
+                            </TableCell>
                             <TableCell>
                               {apt.reminder_sent_at ? (
                                 <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
@@ -265,9 +324,20 @@ const AppointmentsListPage = () => {
                                 <Button size="sm" variant="outline" title="Enviar Mail" onClick={() => handleSendEmailReminder(apt)}>
                                   <Mail className="w-4 h-4 text-rose-400" />
                                 </Button>
-                                <Button size="sm" variant="outline" title="Enviar WhatsApp" onClick={() => handleWhatsAppReminder(apt)}>
-                                  <MessageSquare className="w-4 h-4 text-green-500" />
-                                </Button>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button size="sm" variant="outline" title="Enviar WhatsApp">
+                                      <MessageSquare className="w-4 h-4 text-green-500" />
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'reminder')}>Recordatorio</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'confirmation')}>Confirmacion</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'cancellation')}>Cancelacion</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'paymentReceived')}>Pago recibido</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'paymentPending')}>Pago pendiente</DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
                                 <Button size="sm" variant="outline" onClick={() => handleEdit(apt)}>
                                   <Edit className="w-4 h-4" />
                                 </Button>
@@ -322,6 +392,25 @@ const AppointmentsListPage = () => {
                             />
                             <span><b>{t('admin.appointments.columns.professional', { defaultValue: 'Pro' })}:</b> {apt.professional?.name}</span>
                           </div>
+                          {apt.deposit_amount && (
+                            <div className="col-span-2 border-t pt-2 mt-1 flex justify-between items-center">
+                              <span className="text-xs text-muted-foreground italic">Seña:</span>
+                              <div className="text-right">
+                                <span className="text-sm font-medium">${Number(apt.deposit_amount).toLocaleString('es-AR')} ARS</span>
+                                <span className={`ml-2 text-xs font-medium px-1.5 py-0.5 rounded-full ${
+                                  apt.payment_status === 'approved'  ? 'bg-green-100 text-green-700' :
+                                  apt.payment_status === 'rejected'  ? 'bg-red-100 text-red-700' :
+                                  'bg-yellow-100 text-yellow-700'
+                                }`}>
+                                  {apt.payment_status === 'approved' ? '✓ Acreditada' :
+                                   apt.payment_status === 'rejected' ? '✗ Rechazada'  : '⏳ Pendiente'}
+                                </span>
+                                {apt.mp_payment_id && (
+                                  <p className="text-xs text-muted-foreground font-mono mt-0.5">MP #{apt.mp_payment_id}</p>
+                                )}
+                              </div>
+                            </div>
+                          )}
                           <div className="col-span-2 border-t pt-2 mt-1 flex justify-between items-center">
                             <span className="text-xs text-muted-foreground italic">Recordatorio:</span>
                             {apt.reminder_sent_at ? (
@@ -345,15 +434,25 @@ const AppointmentsListPage = () => {
                             <Mail className="w-4 h-4 text-rose-400" />
                             Mail
                           </Button>
-                          <Button 
-                            variant="outline"
-                            size="sm" 
-                            className="flex-1 gap-2 text-green-600" 
-                            onClick={() => handleWhatsAppReminder(apt)}
-                          >
-                            <MessageSquare className="w-4 h-4" />
-                            WSP
-                          </Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="flex-1 gap-2 text-green-600"
+                              >
+                                <MessageSquare className="w-4 h-4" />
+                                WSP
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start">
+                              <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'reminder')}>Recordatorio</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'confirmation')}>Confirmacion</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'cancellation')}>Cancelacion</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'paymentReceived')}>Pago recibido</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => sendWhatsApp(apt, 'paymentPending')}>Pago pendiente</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                           <Button 
                             variant="outline" 
                             size="sm"

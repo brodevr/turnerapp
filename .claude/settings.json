@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sshpass -p 'City.2022' ssh -o StrictHostKeyChecking=no -p 65002 u435056931@193.203.180.87 \"echo connected && ls ~/\")",
+      "Bash(sshpass -p 'City.2022' ssh -o StrictHostKeyChecking=no -p 65002 u435056931@193.203.180.87 \"ls ~/domains/\")",
+      "Bash(npm install:*)"
+    ]
+  }
+}

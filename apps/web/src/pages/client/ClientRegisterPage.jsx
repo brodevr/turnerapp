@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useClientAuth } from '@/contexts/ClientAuthContext.jsx';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -48,35 +49,37 @@ const ClientRegisterPage = () => {
       const redirectPath = location.state?.redirect || '/client/dashboard';
       navigate(redirectPath, { replace: true });
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      setError(err.message || t('auth.register.error'));
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGoogleLogin = async () => {
-    // Simple mock prompt since OAuth is not yet connected
-    const fakeEmail = prompt("Enter your Google Email (Mock):", "demo@google.com");
-    if (!fakeEmail) return;
-
-    setIsLoading(true);
-    setError('');
-
-    try {
-      await googleLogin({
-        email: fakeEmail,
-        google_id: "google-mock-" + btoa(fakeEmail), // Dummy ID
-        name: fakeEmail.split('@')[0],
-        lastname: ""
-      });
-      const redirectPath = location.state?.redirect || '/client/dashboard';
-      navigate(redirectPath, { replace: true });
-    } catch (err) {
-      setError(err.message || 'Google Login failed');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+        });
+        const profile = await res.json();
+        await googleLogin({
+          email: profile.email,
+          google_id: profile.sub,
+          name: profile.given_name || profile.name || '',
+          lastname: profile.family_name || '',
+        });
+        const redirectPath = location.state?.redirect || '/client/dashboard';
+        navigate(redirectPath, { replace: true });
+      } catch (err) {
+        setError(err.message || 'Error al registrarse con Google');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    onError: () => setError('Error al conectar con Google'),
+  });
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.id]: e.target.value }));

@@ -1,15 +1,19 @@
 
 import React from 'react';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import ScrollToTop from '@/components/ScrollToTop.jsx';
 import { AuthProvider } from '@/contexts/AuthContext.jsx';
 import { BookingProvider } from '@/contexts/BookingContext.jsx';
 import ProtectedRoute from '@/components/ProtectedRoute.jsx';
 import { Toaster } from '@/components/ui/sonner';
+import { Toaster as ShadcnToaster } from '@/components/ui/toaster';
 
 import { ClientAuthProvider } from '@/contexts/ClientAuthContext.jsx';
 import ClientRegisterPage from '@/pages/client/ClientRegisterPage.jsx';
 import ClientDashboard from '@/pages/client/ClientDashboard.jsx';
+import ForgotPasswordPage from '@/pages/client/ForgotPasswordPage.jsx';
+import ResetPasswordPage from '@/pages/client/ResetPasswordPage.jsx';
 
 import HomePage from '@/pages/HomePage.jsx';
 import IdentitySelectionPage from '@/pages/IdentitySelectionPage.jsx';
@@ -29,9 +33,14 @@ import ServicesPage from '@/pages/admin/ServicesPage.jsx';
 import ScheduleConfigPage from '@/pages/admin/ScheduleConfigPage.jsx';
 import TimeSlotBlockingPage from '@/pages/admin/TimeSlotBlockingPage.jsx';
 import CalendarViewPage from '@/pages/admin/CalendarViewPage.jsx';
+import PatientsListPage from '@/pages/admin/PatientsListPage.jsx';
+import PatientHistoryPage from '@/pages/admin/PatientHistoryPage.jsx';
+import PaymentReturnPage from '@/pages/PaymentReturnPage.jsx';
+import PaymentSettingsPage from '@/pages/admin/PaymentSettingsPage.jsx';
 
 function App() {
   return (
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || ''}>
     <ClientAuthProvider>
       <AuthProvider>
         <BookingProvider>
@@ -48,6 +57,9 @@ function App() {
             <Route path="/customer-form" element={<CustomerFormPage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/payment/success" element={<PaymentReturnPage />} />
+            <Route path="/payment/failure" element={<PaymentReturnPage />} />
+            <Route path="/payment/pending" element={<PaymentReturnPage />} />
 
             {/* Client Portal routes */}
             <Route path="/client/login" element={<Navigate to="/login" replace />} />
@@ -56,6 +68,8 @@ function App() {
 
             {/* Unified login */}
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/client/reset-password" element={<ResetPasswordPage />} />
 
             {/* Protected admin routes */}
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
@@ -116,6 +130,30 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route 
+              path="/admin/patients" 
+              element={
+                <ProtectedRoute>
+                  <PatientsListPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route
+              path="/admin/patients/:id/history"
+              element={
+                <ProtectedRoute>
+                  <PatientHistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/payment-settings"
+              element={
+                <ProtectedRoute>
+                  <PaymentSettingsPage />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Catch-all route */}
             <Route path="*" element={
@@ -129,10 +167,12 @@ function App() {
             } />
           </Routes>
             <Toaster />
+            <ShadcnToaster />
           </Router>
         </BookingProvider>
       </AuthProvider>
     </ClientAuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

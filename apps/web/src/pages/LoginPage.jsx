@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/contexts/AuthContext.jsx';
 import { useClientAuth } from '@/contexts/ClientAuthContext.jsx';
 import { Button } from '@/components/ui/button';
@@ -49,28 +50,30 @@ const LoginPage = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    // Simple mock prompt since OAuth is not yet connected
-    const fakeEmail = prompt("Enter your Google Email (Mock):", "demo@google.com");
-    if (!fakeEmail) return;
-
-    setIsLoading(true);
-    setError('');
-
-    try {
-      await googleLogin({
-        email: fakeEmail,
-        google_id: "google-mock-" + btoa(fakeEmail), // Dummy ID
-        name: fakeEmail.split('@')[0],
-        lastname: ""
-      });
-      navigate(from || '/client/dashboard', { replace: true });
-    } catch (err) {
-      setError(err.message || 'Google Login failed');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setIsLoading(true);
+      setError('');
+      try {
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+        });
+        const profile = await res.json();
+        await googleLogin({
+          email: profile.email,
+          google_id: profile.sub,
+          name: profile.given_name || profile.name || '',
+          lastname: profile.family_name || '',
+        });
+        navigate(from || '/client/dashboard', { replace: true });
+      } catch (err) {
+        setError(err.message || 'Error al iniciar sesion con Google');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    onError: () => setError('Error al conectar con Google'),
+  });
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
@@ -79,7 +82,7 @@ const LoginPage = () => {
         <Card className="w-full max-w-md shadow-lg border-primary/20">
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl font-bold text-primary">{t('nav.login')}</CardTitle>
-            <CardDescription>{t('clientDashboard.greeting', { name: '' }).replace('¡Hola, !', 'Accede a tu cuenta').replace('Hello, !', 'Access your account')}</CardDescription>
+            <CardDescription>{t('auth.login.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button 
@@ -140,13 +143,16 @@ const LoginPage = () => {
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="flex flex-col text-center space-y-2 text-sm text-slate-600 border-t pt-4 pb-6">
+          <CardFooter className="flex flex-col text-center space-y-4 text-sm text-slate-600 border-t pt-6 pb-8">
             <p>
               {t('auth.login.noAccount', { defaultValue: "Don't have an account?" })}{' '}
               <Link to="/client/register" className="text-primary font-semibold hover:underline">
                 {t('auth.login.registerLink', { defaultValue: 'Register' })}
               </Link>
             </p>
+            <Link to="/forgot-password" size="sm" className="text-primary/70 hover:text-primary transition-colors underline-offset-4 hover:underline">
+               {t('auth.login.forgot', { defaultValue: 'Forgot your password?' })}
+            </Link>
           </CardFooter>
         </Card>
       </main>

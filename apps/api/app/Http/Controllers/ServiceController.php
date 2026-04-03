@@ -21,10 +21,14 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name'             => 'required|string|max:255',
             'duration_minutes' => 'required|integer|min:1',
-            'price' => 'numeric|min:0',
-            'color' => 'nullable|string|max:50',
+            'price'            => 'numeric|min:0',
+            'color'            => 'nullable|string|max:50',
+            'description'      => 'nullable|string',
+            'image_url'        => 'nullable|url|max:2048',
+            'is_promo'         => 'boolean',
+            'promo_label'      => 'nullable|string|max:100',
         ]);
 
         $service = Service::create($validated);
@@ -34,10 +38,14 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
+            'name'             => 'sometimes|required|string|max:255',
             'duration_minutes' => 'sometimes|required|integer|min:1',
-            'price' => 'sometimes|numeric|min:0',
-            'color' => 'nullable|string|max:50',
+            'price'            => 'sometimes|numeric|min:0',
+            'color'            => 'nullable|string|max:50',
+            'description'      => 'nullable|string',
+            'image_url'        => 'nullable|url|max:2048',
+            'is_promo'         => 'boolean',
+            'promo_label'      => 'nullable|string|max:100',
         ]);
 
         $service->update($validated);

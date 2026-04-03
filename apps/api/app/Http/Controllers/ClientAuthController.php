@@ -121,6 +121,104 @@ class ClientAuthController extends Controller
         ]);
     }
 
+    public function updateProfile(Request $request)
+    {
+        $patient = $request->user();
+        
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'lastname' => 'sometimes|string|max:255',
+            'phone' => 'nullable|string|max:50',
+            'dni' => 'nullable|string|max:50',
+            'birthdate' => 'nullable|date',
+        ]);
+
+        $patient->update($validated);
+
+        return response()->json([
+            'message' => 'Profile updated successfully',
+            'record' => $patient
+        ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $patient = $request->user();
+
+        if (!Hash::check($request->current_password, $patient->password)) {
+            return response()->json([
+                'message' => 'The provided password does not match your current password.'
+            ], 422);
+        }
+
+        $patient->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return response()->json(['message' => 'Password updated successfully']);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $patient = Patient::where('email', $request->email)->first();
+
+        if (!$patient) {
+            return response()->json(['message' => 'If your email is registered, you will receive a reset link.'], 200);
+        }
+
+        // Generate token and send email logic
+        // For simplicity in this specialized setup, we'll use a direct token approach
+        $token = \Illuminate\Support\Str::random(64);
+        \Illuminate\Support\Facades\DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $patient->email],
+            ['token' => Hash::make($token), 'created_at' => now()]
+        );
+
+        $resetUrl = env('FRONTEND_URL') . "/client/reset-password?token=" . $token . "&email=" . urlencode($patient->email);
+
+        // Send Email (Reusing reminder logic style)
+        \Illuminate\Support\Facades\Mail::to($patient->email)->send(new \App\Mail\GenericMail(
+            "Recuperar Contraseña - Virginia Rojas Beauty",
+            "Has solicitado restablecer tu contraseña. Haz clic en el botón de abajo para continuar:",
+            $resetUrl,
+            "Restablecer Contraseña"
+        ));
+
+        return response()->json(['message' => 'Reset link sent to your email.']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $record = \Illuminate\Support\Facades\DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$record || !Hash::check($request->token, $record->token)) {
+            return response()->json(['message' => 'Invalid or expired token.'], 422);
+        }
+
+        $patient = Patient::where('email', $request->email)->first();
+        if ($patient) {
+            $patient->update(['password' => Hash::make($request->password)]);
+            \Illuminate\Support\Facades\DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        }
+
+        return response()->json(['message' => 'Password has been reset successfully.']);
+    }
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();

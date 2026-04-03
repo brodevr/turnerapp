@@ -1,0 +1,66 @@
+# robots.txt — Virginia Rojas Beauty
+# https://virginiarojasbeauty.com.ar
+
+# ── Motores de búsqueda tradicionales ──────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# ── Crawlers de IA — permitidos (indexación y citado) ──────────
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI (AI Overviews / Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Common Crawl (entrenamiento de modelos open source)
+User-agent: CCBot
+Allow: /
+
+# ── Crawlers de datos / scraping no deseado ────────────────────
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ── General ────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# ── Archivos para LLMs ────────────────────────────────────────
+# Sitemap
+Sitemap: https://virginiarojasbeauty.com.ar/sitemap.xml
+
+# Resumen para LLMs
+# LLMs: https://virginiarojasbeauty.com.ar/llms.txt

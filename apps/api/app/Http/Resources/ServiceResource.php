@@ -10,13 +10,17 @@ class ServiceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'duration' => $this->duration_minutes, // mapped map to what frontend expects
-            'price' => $this->price,
-            'color' => $this->color,
-            'created' => $this->created_at->toIso8601String(),
-            'updated' => $this->updated_at->toIso8601String(),
+            'id'               => $this->id,
+            'name'             => $this->name,
+            'duration_minutes' => $this->duration_minutes,
+            'price'            => $this->price,
+            'color'            => $this->color,
+            'description'      => $this->description,
+            'image_url'        => $this->image_url,
+            'is_promo'         => (bool) $this->is_promo,
+            'promo_label'      => $this->promo_label,
+            'created'          => $this->created_at->toIso8601String(),
+            'updated'          => $this->updated_at->toIso8601String(),
         ];
     }
 }
